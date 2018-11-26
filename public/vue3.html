@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="apps">
+        <div v-for='todo in aricleArr' style='padding:10px;'>
+            <div>
+                {{todo.Name}}
+                {{todo.selected}}
+                {{todo.Content}}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <script>
+        var apps = new Vue({
+            el: '#apps',
+            data: {
+                aricleArr: [],
+            },
+            watch: {
+                '$route': 'getParams'
+            },
+            methods: {
+                getParams: function () {
+                    // 取到路由带过来的参数
+                    var routerParams = this.$route.query.nameId
+                    // 将数据放在当前组件的数据内
+                    console.log("nameId" + routerParams)
+                    this.textareText = routerParams
+                },
+            }
+        })
+
+        function getArticle() {
+
+        }
+        getArticle();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <div>
+                <input type="text" v-model="Hcontent">
+            </div>
+            <div>
+                <input type="text" v-model="Hname">
+                <div v-on:click="submit">发布</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            Hcontent: "",
+            Hname: "",
+            time: new Date().getTime(),
+            articleArr1: {},
+        },
+        methods: {
+            submit: function () {
+                if (this.Hcontent === "") {
+                    alert("请输入内容");
+                }
+                if (this.Name === "") {
+                    this.Name = "匿名";
+                }
+                let that = this;
+                if (this.Hcontent !== "") {
+                    axios
+                        .post("/Harticle", {
+                            Hcontent: this.Hcontent,
+                            Hname: this.Hname,
+                            time: this.time,
+                            Id: this.articleArr1._id,
+                        })
+                        .then(function (response) {
+                            console.log(response);
+                        });
+                    alert("发布成功");
+                    this.Hcontent = "";
+                    this.Hname = "";
+                }
+            }
+        }
+    })
+</script>
+
+</html>

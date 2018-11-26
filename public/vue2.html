@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .zong {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="apps">
+        <div v-for='todo in aricleArr' style='padding:10px;'>
+            <div>
+                {{todo.Name}}
+                {{todo.selected}}
+                {{todo.Content}}
+                <button @click='deleteItem(todo)'>删除</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Vue.component('button-shanchu', {
+        //     template: '\
+        //     <div>\
+        //     <button v-on:click="$emit(\'remove\')">Remove</button>\
+        //     </div>\
+        //     ',
+        // })
+        var apps = new Vue({
+            el: '#apps',
+            data: {
+                aricleArr: [],
+            },
+            methods: {
+                deleteItem: function (value) {
+                    console.log(value);
+                    axios.post('/removearticle', { biaoji: value._id }).then(function (abc) {
+                        console.log(abc.data);
+                        // apps.aricleArr = abc.data;
+                        // console.log(abc)
+                    })
+                    getAeticle();
+                }
+            }
+        })
+
+
+        function getAeticle() {
+            axios.get('/getarticle1').then(function (abc) {
+                apps.aricleArr = abc.data;
+                console.log(abc.data);
+            })
+        }
+        getAeticle();
+
+    //    console.log(aaa.id);
+    </script>
+</body>
+
+</html>
